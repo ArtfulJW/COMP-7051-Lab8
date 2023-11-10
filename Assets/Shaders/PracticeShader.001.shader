@@ -41,6 +41,9 @@ Shader"Custom/PracticeShader.001" {
                 
                 
                 /*
+    
+                https://www.ronja-tutorials.com/post/015-wobble-displacement/        
+    
                 float4 modVertex = v.vertex;
                 modVertex.y += sin(v.vertex.x * _Time * _Frequency);
             
