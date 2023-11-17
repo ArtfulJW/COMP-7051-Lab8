@@ -23,6 +23,8 @@ Shader"Custom/WaterShader"
         // Declaring the Vertex shader in this format vertex:VertexShaderName
         #pragma surface surf Standard fullforwardshadows vertex:vert addshadow alpha:fade
 
+        static const float PI = 3.14159265f;
+
         sampler2D _MainTex;
         fixed4 _Color;
 
@@ -52,14 +54,15 @@ Shader"Custom/WaterShader"
             // Note that if we manipulate the scale, we need to tell Unity to recalculate an extra shadow pass, addshadow (in pragma line).
             
             float4 modifiedPos = data.vertex;
-            modifiedPos.y += sin(data.vertex.x * _Frequency + _Time.y * _AnimationSpeed) * _Amplitude;
+            modifiedPos.y += (2 * _Amplitude * cos(((1 / _Frequency) - (1 / _Frequency * 2)) / 2 * data.vertex.x - ((2 * PI * _Frequency) - (2 * PI * (_Frequency / 2))) / 2 * _Time.y)) * sin(((1 / _Frequency) + (1 / _Frequency * 2)) / 2 * data.vertex.x - ((2 * PI * _Frequency) + (2 * PI * (_Frequency / 2))) / 2 * _Time.y);
+
     
             float3 posPlusTangent = data.vertex + data.tangent * 0.01;
-            posPlusTangent.y += sin(posPlusTangent.x * _Frequency + _Time.y * _AnimationSpeed) * _Amplitude;
+            posPlusTangent.y += (2 * _Amplitude * cos(((1 / _Frequency) - (1 / _Frequency * 2)) / 2 * posPlusTangent.x - ((2 * PI * _Frequency) - (2 * PI * (_Frequency / 2))) / 2 * _Time.y)) * sin(((1 / _Frequency) + (1 / _Frequency * 2)) / 2 * posPlusTangent.x - ((2 * PI * _Frequency) + (2 * PI * (_Frequency / 2))) / 2 * _Time.y);
 
             float3 bitangent = cross(data.normal, data.tangent);
             float3 posPlusBitangent = data.vertex + bitangent * 0.01;
-            posPlusBitangent.y += sin(posPlusBitangent.x * _Frequency + _Time.y * _AnimationSpeed) * _Amplitude;
+            posPlusBitangent.y += (2 * _Amplitude * cos(((1 / _Frequency) - (1 / _Frequency * 2)) / 2 * posPlusBitangent.x - ((2 * PI * _Frequency) - (2 * PI * (_Frequency / 2))) / 2 * _Time.y)) * sin(((1 / _Frequency) + (1 / _Frequency * 2)) / 2 * posPlusBitangent.x - ((2 * PI * _Frequency) + (2 * PI * (_Frequency / 2))) / 2 * _Time.y);
 
             float3 modifiedTangent = posPlusTangent - modifiedPos;
             float3 modifiedBitangent = posPlusBitangent - modifiedPos;
@@ -69,6 +72,7 @@ Shader"Custom/WaterShader"
             data.vertex = modifiedPos;
     
         }
+// (2 * _Amplitude * cos( ((1/_Frequency)-(1/_Frequency*2))/2 * posPlusBitangent.x - ((2*PI*_Frequency) - (2*PI*(_Frequency/2)))/2 * _Time )) * sin(((1/_Frequency)+(1/_Frequency*2))/2 * posPlusBitangent.x - ((2*PI*_Frequency) + (2*PI*(_Frequency/2)))/2 * _Time );
 
         void surf(Input i, inout SurfaceOutputStandard o)
         {
