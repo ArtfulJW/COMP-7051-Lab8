@@ -4,7 +4,8 @@ Shader"Custom/WaterShader"
         _Color("Tint", Color) = (0,0,0,1)
         _MainTex ("Texture", 2D) = "white" {}
         _Amplitude("Wave Size", Range(0,1)) = 0.4
-        _Frequency("Wave Frequency", Range(1,1000)) = 2
+        _Frequency("Wave Frequency", Range(1,10)) = 2
+        _SecondaryFrequency("Wave Second Frequency", Range(1,10)) = 2
         _AnimationSpeed ("Animation Speed", Range(0,20)) = 1
 	    _Smoothness ("Smoothness", float) = 0
         _Metallic("Metallic", Range(0,100)) = 1
@@ -30,6 +31,7 @@ Shader"Custom/WaterShader"
 
         float _Amplitude;
         float _Frequency;
+        float _SecondaryFrequency;
         float _AnimationSpeed;
         float _Smoothness;
         half _Metallic;
@@ -54,15 +56,15 @@ Shader"Custom/WaterShader"
             // Note that if we manipulate the scale, we need to tell Unity to recalculate an extra shadow pass, addshadow (in pragma line).
             
             float4 modifiedPos = data.vertex;
-            modifiedPos.y += (2 * _Amplitude * cos(((1 / _Frequency) - (1 / _Frequency * 2)) / 2 * data.vertex.x - ((2 * PI * _Frequency) - (2 * PI * (_Frequency / 2))) / 2 * _Time.y)) * sin(((1 / _Frequency) + (1 / _Frequency * 2)) / 2 * data.vertex.x - ((2 * PI * _Frequency) + (2 * PI * (_Frequency / 2))) / 2 * _Time.y);
+    modifiedPos.y += (2 * _Amplitude * cos(((1 / _Frequency) - (1 / _SecondaryFrequency)) / 2 * data.vertex.x - ((2 * PI * _Frequency) - (2 * PI * (_SecondaryFrequency))) / 2 * _Time.y * _AnimationSpeed)) * sin(((1 / _Frequency) + (_SecondaryFrequency)) / 2 * data.vertex.x - ((2 * PI * _Frequency) + (2 * PI * (_SecondaryFrequency))) / 2 * _Time.y * _AnimationSpeed);
 
     
             float3 posPlusTangent = data.vertex + data.tangent * 0.01;
-            posPlusTangent.y += (2 * _Amplitude * cos(((1 / _Frequency) - (1 / _Frequency * 2)) / 2 * posPlusTangent.x - ((2 * PI * _Frequency) - (2 * PI * (_Frequency / 2))) / 2 * _Time.y)) * sin(((1 / _Frequency) + (1 / _Frequency * 2)) / 2 * posPlusTangent.x - ((2 * PI * _Frequency) + (2 * PI * (_Frequency / 2))) / 2 * _Time.y);
+    posPlusTangent.y += (2 * _Amplitude * cos(((1 / _Frequency) - (1 / _SecondaryFrequency)) / 2 * posPlusTangent.x - ((2 * PI * _Frequency) - (2 * PI * (_SecondaryFrequency))) / 2 * _Time.y * _AnimationSpeed)) * sin(((1 / _Frequency) + (_SecondaryFrequency)) / 2 * posPlusTangent.x - ((2 * PI * _Frequency) + (2 * PI * (_SecondaryFrequency))) / 2 * _Time.y * _AnimationSpeed);
 
             float3 bitangent = cross(data.normal, data.tangent);
             float3 posPlusBitangent = data.vertex + bitangent * 0.01;
-            posPlusBitangent.y += (2 * _Amplitude * cos(((1 / _Frequency) - (1 / _Frequency * 2)) / 2 * posPlusBitangent.x - ((2 * PI * _Frequency) - (2 * PI * (_Frequency / 2))) / 2 * _Time.y)) * sin(((1 / _Frequency) + (1 / _Frequency * 2)) / 2 * posPlusBitangent.x - ((2 * PI * _Frequency) + (2 * PI * (_Frequency / 2))) / 2 * _Time.y);
+    posPlusBitangent.y += (2 * _Amplitude * cos(((1 / _Frequency) - (1 / _SecondaryFrequency)) / 2 * posPlusBitangent.x - ((2 * PI * _Frequency) - (2 * PI * (_SecondaryFrequency))) / 2 * _Time.y * _AnimationSpeed)) * sin(((1 / _Frequency) + (_SecondaryFrequency)) / 2 * posPlusBitangent.x - ((2 * PI * _Frequency) + (2 * PI * (_SecondaryFrequency))) / 2 * _Time.y * _AnimationSpeed);
 
             float3 modifiedTangent = posPlusTangent - modifiedPos;
             float3 modifiedBitangent = posPlusBitangent - modifiedPos;
