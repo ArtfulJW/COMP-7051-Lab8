@@ -1,4 +1,4 @@
-Shader"Custom/SurfaceShader"
+Shader"Custom/WaterShader"
 {
     Properties{
         _Color("Tint", Color) = (0,0,0,1)
