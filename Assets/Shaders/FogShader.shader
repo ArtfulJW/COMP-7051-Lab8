@@ -42,9 +42,15 @@ Shader"Custom/FogShader"{
             {
     
     // Calculate the Distance from point in World Space to Camera
-                float dist = length(_WorldSpaceCameraPos - i.position);
+    float dist = length(_WorldSpaceCameraPos - i.position);
+    
+    // Unity Macro for Fog Calculation
+    UNITY_CALC_FOG_FACTOR_RAW(dist);
     
                 fixed4 col = tex2D(_MainTex, i.uv);
+    
+    
+                
                 // Return Flat Red
                 return col * _FogColor;
             }
