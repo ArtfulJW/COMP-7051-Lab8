@@ -617,7 +617,7 @@ GameObject:
   - component: {fileID: 167258833}
   - component: {fileID: 167258832}
   m_Layer: 0
-  m_Name: StencilFlashlightMat
+  m_Name: StencilFlashlight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2398,6 +2398,7 @@ MonoBehaviour:
   _DayShader: {fileID: 2100000, guid: 0e79d6a99d1a54549a0505217d79c19f, type: 2}
   _NightShader: {fileID: 2100000, guid: 717b70991f861d940a01c3b03160c625, type: 2}
   _FogShader: {fileID: 2100000, guid: 22b5c0b278bc2ca41a47b204f88b0ffa, type: 2}
+  _Flashlight: {fileID: 167258831}
   _Camera: {fileID: 963194227}
 --- !u!4 &1532393574
 Transform:

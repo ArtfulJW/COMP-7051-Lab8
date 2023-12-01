@@ -4,6 +4,7 @@ https://forum.unity.com/threads/trying-to-create-stencil-lights-but-i-am-hopeles
 https://www.youtube.com/watch?v=-NB2TR8IjE8
 https://www.ronja-tutorials.com/post/022-stencil-buffers/
 https://docs.unity3d.com/Manual/SL-Stencil.html
+https://stackoverflow.com/questions/6787733/how-do-multiple-pass-shaders-work-in-hlsl
 
 Multi-Pass Shader that writes to the Stencil Buffer first, then REPLACES those pixels in the second PASS.
 Pass 1: Write to Stencil Buffer
