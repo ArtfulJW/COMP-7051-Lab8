@@ -9,6 +9,21 @@ public class ShaderManager : MonoBehaviour
     private static ShaderManager _instance;
     public static ShaderManager Instance { get { return _instance; } }
 
+    public enum _ActiveShader { Nothing, DayShader, NightShader, FogShader};
+    public bool isFlashlightOn = false;
+
+    [SerializeField]
+    public Material _DayShader;
+
+    [SerializeField]
+    public Material _NightShader;
+
+    [SerializeField]
+    public Material _FogShader;
+
+    [SerializeField]
+    public Camera _Camera;
+
     // Make sure there is only ever one GameManager
     private void Awake()
     {
@@ -35,6 +50,21 @@ public class ShaderManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            _Camera.GetComponent<CameraShaderApplicator>().wipeImageEffect();
+        }
+        if (Input.GetKeyDown(KeyCode.F2))
+        {
+            _Camera.GetComponent<CameraShaderApplicator>().setImageEffect(_FogShader);
+        }
+        if (Input.GetKeyDown(KeyCode.F3))
+        {
+            _Camera.GetComponent<CameraShaderApplicator>().setImageEffect(_DayShader);
+        }
+        if (Input.GetKeyDown(KeyCode.F4))
+        {
+            _Camera.GetComponent<CameraShaderApplicator>().setImageEffect(_NightShader);
+        }
     }
 }

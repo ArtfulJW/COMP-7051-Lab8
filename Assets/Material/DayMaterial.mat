@@ -63,7 +63,7 @@ Material:
     - _Contrast: 1
     m_Floats:
     - _BumpScale: 1
-    - _Contrast: 0
+    - _Contrast: 0.74
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0

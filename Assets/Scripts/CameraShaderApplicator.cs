@@ -6,8 +6,7 @@ using UnityEngine;
 public class CameraShaderApplicator : MonoBehaviour
 {
 
-    [SerializeField]
-    public Material _Material;
+    private Material _Material;
 
     private void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
@@ -20,6 +19,24 @@ public class CameraShaderApplicator : MonoBehaviour
 
         // Material is Provided, modify the incoming Source.
         Graphics.Blit(source, destination, _Material);
+    }
+
+    public bool setImageEffect(Material inputMaterial)
+    {
+        if (inputMaterial != null) 
+        { 
+            _Material = inputMaterial;
+            return true;
+        }
+
+        // Something went wrong, check valid material.
+        return false;
+    }
+
+    public bool wipeImageEffect()
+    {
+        _Material = null;
+        return true;
     }
 
 }
