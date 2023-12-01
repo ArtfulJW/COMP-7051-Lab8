@@ -22,6 +22,9 @@ public class ShaderManager : MonoBehaviour
     public Material _FogShader;
 
     [SerializeField]
+    public GameObject _Flashlight;
+
+    [SerializeField]
     public Camera _Camera;
 
     // Make sure there is only ever one GameManager
@@ -65,6 +68,14 @@ public class ShaderManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F4))
         {
             _Camera.GetComponent<CameraShaderApplicator>().setImageEffect(_NightShader);
+        }
+        if (Input.GetKeyDown(KeyCode.F5))
+        {
+            // Flip the Boolean
+            isFlashlightOn = !isFlashlightOn;
+            
+            // Set GameObject's Active based on this boolean
+            _Flashlight.SetActive(isFlashlightOn);
         }
     }
 }
